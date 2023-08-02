@@ -17,6 +17,8 @@ class UserService  {
         $user->completed_personal_infos = false;
         $user->save();
 
-        return 200;
+        return response()->json([
+            'response' => 'User cadastrado com sucesso'
+        ], 201);
     }
 }

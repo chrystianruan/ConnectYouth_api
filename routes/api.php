@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\api\UserController;
+use \App\Http\Controllers\api\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/new-user', [UserController::class, 'newSimpleUser']);
 Route::get('/users', [UserController::class, 'getUsers']);
 Route::get('/user/{id}', [UserController::class, 'getPersonalInfosToUser']);
+Route::get('/user/{id}', [UserController::class, 'getPersonalInfosToUser']);
+Route::post('/new-event', [EventController::class, 'newEvent']);
+Route::get('/events', [EventController::class, 'getAllEvents']);

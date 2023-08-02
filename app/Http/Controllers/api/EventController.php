@@ -16,6 +16,19 @@ class EventController extends Controller
     }
 
     public function newEvent(Request $request) {
+        $response = $this->eventService->newEvent($request);
 
+        if ($response->status() === 201) {
+            return $response;
+        }
+        return response()->json([
+            'response' => 'Erro ao cadastrar evento'
+        ], 405);
+    }
+
+    public function getAllEvents() {
+        $events = $this->eventService->getEvents();
+
+        return $events;
     }
 }

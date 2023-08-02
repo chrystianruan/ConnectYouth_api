@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->boolean('free');
-            $table->decimal('price');
+            $table->decimal('price')->nullable();
             $table->string('location');
             $table->unsignedBigInteger('congregacao_id');
             $table->foreign('congregacao_id')->references('id')->on('congregacaos')->cascadeOnDelete();
