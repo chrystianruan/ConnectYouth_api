@@ -8,9 +8,10 @@ use App\Models\Event;
 class EventService {
 
     public function newEvent($request) {
+        $image = $request->image->store('images');
         $event = new Event;
         $event->title = $request->title;
-        $event->image = $request->image;
+        $event->image = $image;
         $event->description = $request->description;
         $event->free = $request->free;
         $event->price = $request->price;
