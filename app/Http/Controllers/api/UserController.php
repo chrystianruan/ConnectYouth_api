@@ -62,16 +62,10 @@ class UserController extends Controller
     }
 
 
-    public function getUsers() {
-        $users = User::all();
 
-        return $users;
-    }
-
-    public function getPersonalInfosToUser($id) {
+    public function getPersonalInfosToUser() {
         $user = User::select('*')
-            ->join('personal_informations_users', 'personal_informations_users.user_id', '=', 'users.id')
-            ->findOrFail($id);
+            ->findOrFail(auth()->user()->id);
 
         return $user;
     }

@@ -34,7 +34,15 @@ class AuthController extends Controller
         }
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'master' => 1, 'admin' => 0])) {
-
+            $user = Auth::user();
+            $token = $user->createToken("Token");
+            return response()->json([
+                'response' => 'Usuário logado com sucesso',
+                'admin' => false,
+                'master' => true,
+                'token' => $token->plainTextToken,
+                'para_moises' => 'você é um otário'
+            ], 200);
         }
 
         return response()->json([

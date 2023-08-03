@@ -17,9 +17,7 @@ use \App\Http\Controllers\api\AuthController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
 
 
 Route::post('/new-user', [UserController::class, 'newSimpleUser']);
@@ -30,3 +28,4 @@ Route::get('/user/{id}', [UserController::class, 'getPersonalInfosToUser']);
 Route::post('/new-event', [EventController::class, 'newEvent']);
 Route::get('/events', [EventController::class, 'getAllEvents']);
 Route::post('/logon', [AuthController::class, 'authentication']);
+Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getPersonalInfosToUser']);
