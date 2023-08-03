@@ -61,6 +61,11 @@ class UserController extends Controller
         ], 405);
     }
 
+    public function getUsers() {
+        $users = User::all();
+
+        return $users;
+    }
 
 
     public function getPersonalInfosToUser() {
