@@ -61,16 +61,31 @@ class UserController extends Controller
         ], 405);
     }
 
+    public function storePersonalInfos(Request $request) {
+        $response = $this->userService->storePersonalInfos($request);
+
+        if ($response->status() === 201) {
+            return $response;
+        }
+        return response()->json([
+            'response' => 'Erro ao cadastrar usuário'
+        ], 405);
+    }
+
     public function getUsers() {
-        $users = User::all();
+        $users = $this->userService->getUsers();
 
         return $users;
     }
 
 
-    public function getPersonalInfosToUser() {
-        $user = User::select('*')
-            ->findOrFail(auth()->user()->id);
+    public function showUserWithPersonalInfos($userId) {
+        $user = $this->userService->showUserWithPersonalInfos($userId);
+
+        return $user;
+    }
+    public function showUser() {
+        $user = $this->userService->showUserWithPersonalInfosToAuthUser();
 
         return $user;
     }

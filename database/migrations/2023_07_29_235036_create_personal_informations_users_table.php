@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->unsignedBigInteger('congregacao_id');
-            $table->foreign('congregacao_id')->references('id')->on('congregacaos')->cascadeOnDelete();
+            $table->foreign('congregacao_id')->references('id')->on('congregacaos')->cascadeOnDelete()->nullable();
             $table->string('cep');
             $table->string('street');
             $table->string('district');

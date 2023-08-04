@@ -26,4 +26,11 @@ Route::get('/users', [UserController::class, 'getUsers']);
 Route::post('/new-event', [EventController::class, 'newEvent']);
 Route::get('/events', [EventController::class, 'getAllEvents']);
 Route::post('/logon', [AuthController::class, 'authentication']);
-Route::middleware('auth:sanctum')->get('/user', [UserController::class, 'getPersonalInfosToUser']);
+Route::middleware('auth:sanctum')->group(function() {
+    Route::post('/save/personal-infos', [UserController::class, 'storePersonalInfos']);
+    Route::get('/user', [UserController::class, 'showUser']);
+});
+
+Route::middleware(['auth:sanctum'])->group(function() {
+    Route::get('/admin/user-infos/{id}', [UserController::class, 'showUserWithPersonalInfos']);
+});

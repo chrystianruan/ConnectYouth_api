@@ -23,10 +23,21 @@ class EventService {
             'response' => 'Evento cadastrado com sucesso'
         ],201);
     }
+
     public function getEvents() {
         $events = Event::all();
 
         return $events;
+    }
+
+    public function showEvent($eventId) {
+
+    }
+    public function updateEvent($eventId) {
+
+    }
+    public function deleteEvent($eventId) {
+
     }
 }
 
