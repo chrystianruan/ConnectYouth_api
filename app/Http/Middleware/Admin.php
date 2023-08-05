@@ -16,7 +16,7 @@ class Admin
     public function handle(Request $request, Closure $next): Response
     {
         if (!auth()->user()->admin) {
-            return abort(403);
+            return response()->json(["response" => 'Sem autorização'], 403);
         }
         return $next($request);
     }

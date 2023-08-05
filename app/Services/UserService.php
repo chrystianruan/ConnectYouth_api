@@ -44,6 +44,10 @@ class UserService  {
         $personalInfos->birth = $request->birth;
         $personalInfos->save();
 
+        User::findOrFail(auth()->user()->id)->update([
+           'completed_personal_infos' => 1
+        ]);
+
         return response()->json([
            "response" => "Informações pessoais cadastradas com sucesso"
         ], 201);
@@ -73,11 +77,14 @@ class UserService  {
     }
 
     public function showUserWithPersonalInfos($userId) {
-        $userSelected = User::findOrFail($userId);
-        $authUser = auth()->user();
+        $userSelected = User::leftJoin('personal_informations_users', 'personal_informations_users.user_id', '=', 'users.id')
+                            ->findOrFail($userId);
+        $authUser = User::leftJoin('personal_informations_users', 'personal_informations_users.user_id', '=', 'users.id')
+            ->findOrFail(auth()->user()->id);
+
         $resultValidation = $this->validateUserCongregacao($authUser, $userSelected);
 
-        if (!$resultValidation) {
+        if ($resultValidation === false) {
             $user = $this->userRepository->selectUserDifferentCongregacao($userId);
         } else {
             $user = $this->userRepository->selectUserSameCongregacao($userId);
@@ -89,9 +96,12 @@ class UserService  {
     public function validateUserCongregacao($authUser, $user) {
 
         if ($authUser->congregacao_id !== $user->congregacao_id) {
-            return null;
+            return false;
         }
 
         return true;
+
+
+
     }
 }

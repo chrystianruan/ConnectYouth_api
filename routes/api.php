@@ -23,7 +23,7 @@ use \App\Http\Controllers\api\AuthController;
 Route::post('/new-user', [UserController::class, 'newSimpleUser']);
 Route::post('/new-admin-user', [UserController::class, 'newAdminUser']);
 Route::get('/users', [UserController::class, 'getUsers']);
-Route::post('/new-event', [EventController::class, 'newEvent']);
+
 Route::get('/events', [EventController::class, 'getAllEvents']);
 Route::post('/logon', [AuthController::class, 'authentication']);
 Route::middleware('auth:sanctum')->group(function() {
@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/user', [UserController::class, 'showUser']);
 });
 
-Route::middleware(['auth:sanctum'])->group(function() {
+Route::middleware(['auth:sanctum', 'admin'])->group(function() {
+    Route::post('/new-event', [EventController::class, 'newEvent']);
     Route::get('/admin/user-infos/{id}', [UserController::class, 'showUserWithPersonalInfos']);
 });

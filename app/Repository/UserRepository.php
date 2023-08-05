@@ -18,7 +18,7 @@ class UserRepository  {
     //$table->string('telephone');
     //$table->date('birth');
     public function selectUserDifferentCongregacao($userId) {
-        $user = User::select('users.name', 'email', 'telephone', 'birth', 'congregacaos.name')
+        $user = User::select('users.name as name', 'email', 'telephone', 'birth', 'congregacaos.name as congregacao_name', 'setors.name as setor_name')
             ->leftJoin('personal_informations_users', 'personal_informations_users.user_id', '=', 'users.id')
             ->leftJoin('congregacaos', 'congregacaos.id', '=', 'personal_informations_users.congregacao_id')
             ->leftJoin('setors', 'setors.id', '=', 'congregacaos.setor_id')
