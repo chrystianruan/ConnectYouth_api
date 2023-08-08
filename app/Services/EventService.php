@@ -4,11 +4,18 @@ namespace App\Services;
 
 
 use App\Models\Event;
+use App\Models\User;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class EventService {
 
     public function newEvent($request) {
         $image = $request->image->store('images');
+
+        $authUser = User::leftJoin('personal_informations_users', 'personal_informations_users.user_id', '=', 'users.id')
+            ->findOrFail(auth()->user()->id);
+        
         $event = new Event;
         $event->title = $request->title;
         $event->image = $image;
@@ -16,7 +23,7 @@ class EventService {
         $event->free = $request->free;
         $event->price = $request->price;
         $event->location = $request->location;
-        $event->congregacao_id = $request->congregacao_id;
+        $event->congregacao_id = $authUser->congregacao_id;
         $event->save();
 
         return response()->json([
