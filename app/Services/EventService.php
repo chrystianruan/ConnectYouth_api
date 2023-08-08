@@ -11,14 +11,14 @@ use Illuminate\Support\Facades\Storage;
 class EventService {
 
     public function newEvent($request) {
-//        $image = $request->image->store('images');
+        $image = $request->image->store('images');
 
         $authUser = User::leftJoin('personal_informations_users', 'personal_informations_users.user_id', '=', 'users.id')
             ->findOrFail(auth()->user()->id);
 
         $event = new Event;
         $event->title = $request->title;
-        $event->image = $request->image;
+        $event->image = $image;
         $event->description = $request->description;
         $event->free = $request->free;
         $event->price = $request->price;
