@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\api\UserController;
 use \App\Http\Controllers\api\EventController;
+use \App\Http\Controllers\api\EventUserController;
 use \App\Http\Controllers\api\AuthController;
 
 /*
@@ -29,9 +30,11 @@ Route::post('/logon', [AuthController::class, 'authentication']);
 Route::middleware('auth:sanctum')->group(function() {
     Route::post('/save/personal-infos', [UserController::class, 'storePersonalInfos']);
     Route::get('/user', [UserController::class, 'showUser']);
+    Route::post('/save/event-user', [EventUserController::class, 'storeUserInEvent']);
 });
 
 Route::middleware(['auth:sanctum', 'admin'])->group(function() {
     Route::post('/new-event', [EventController::class, 'newEvent']);
     Route::get('/admin/user-infos/{id}', [UserController::class, 'showUserWithPersonalInfos']);
+    Route::get('/admin/event/{id}/users', [EventUserController::class, 'getAllParticipantsOfEvent']);
 });
