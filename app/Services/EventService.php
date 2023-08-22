@@ -33,8 +33,26 @@ class EventService {
 
     public function getEvents() {
         $events = Event::all();
+        $formatEvents = $this->formatData($events);
+        return $formatEvents;
+    }
 
-        return $events;
+    public function formatData($events) {
+        $formatData = [];
+        foreach ($events as $event) {
+             $formatData[] = [
+                 'id' => $event->id,
+                 'image' => url('/'.$event->image),
+                 'title' => $event->title,
+                 'description' => $event->description,
+                 'free' => $event->free,
+                 'price' => $event->price,
+                 'location' => $event->location,
+                 'congregacao' => $event->congregacao_id
+             ];
+        }
+
+        return $formatData;
     }
 
     public function showEvent($eventId) {
