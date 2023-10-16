@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class EventService {
 
     public function newEvent($request) {
-        $image = $request->image->store('images');
+        $image = Storage::put('public/images', $request->image);
 
         $authUser = User::leftJoin('personal_informations_users', 'personal_informations_users.user_id', '=', 'users.id')
             ->findOrFail(auth()->user()->id);
