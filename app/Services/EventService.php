@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class EventService {
 
     public function newEvent($request) {
-        $image = Storage::put('images', $request->image);
+        $image = Storage::put('public/images', $request->image);
 
         $authUser = User::leftJoin('personal_informations_users', 'personal_informations_users.user_id', '=', 'users.id')
             ->findOrFail(auth()->user()->id);
@@ -40,9 +40,10 @@ class EventService {
     public function formatData($events) {
         $formatData = [];
         foreach ($events as $event) {
+            $image = str_replace("public/", "", $event->image);
              $formatData[] = [
                  'id' => $event->id,
-                 'image' => url('/'.$event->image),
+                 'image' => url('/storage/'.$image),
                  'title' => $event->title,
                  'description' => $event->description,
                  'free' => $event->free,
