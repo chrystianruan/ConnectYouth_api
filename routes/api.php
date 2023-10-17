@@ -38,3 +38,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function() {
     Route::get('/admin/user-infos/{id}', [UserController::class, 'showUserWithPersonalInfos']);
     Route::get('/admin/event/{id}/users', [EventUserController::class, 'getAllParticipantsOfEvent']);
 });
+
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
