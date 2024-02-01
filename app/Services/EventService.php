@@ -18,7 +18,7 @@ class EventService {
 
         $event = new Event;
         $event->title = $request->title;
-        $event->image = $image;
+        $event->image = str_replace('public/', '', $image);
         $event->description = $request->description;
         $event->free = $request->free;
         $event->price = $request->price;
